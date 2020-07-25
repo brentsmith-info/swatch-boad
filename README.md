@@ -1,1 +1,1 @@
-# swatch-boad
+# swatch-board
