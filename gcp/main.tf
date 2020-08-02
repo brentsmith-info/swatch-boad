@@ -5,11 +5,11 @@ provider "google" {
 }
 
 resource "google_dns_record_set" "frontend" {
-  name = "frontend.${google_dns_managed_zone.brentsmith-info-zone.dns_name}"
+  name = "frontend.brentsmith.info."
   type = "A"
   ttl  = 300
 
-  managed_zone = google_dns_managed_zone.brentsmith-info-zone.name
+  managed_zone = "brentsmith-info-zone"
 
   rrdatas = [google_compute_instance.frontend.network_interface[0].access_config[0].nat_ip]
 }
@@ -29,5 +29,15 @@ resource "google_compute_instance" "frontend" {
     network = "default"
     access_config {
     }
+  }
+
+}
+resource "google_compute_firewall" "default" {
+  name    = "port-5000-firewall"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["5000"]
   }
 }
