@@ -4,12 +4,6 @@ provider "google" {
   region      = "us-east1"
 }
 
-resource "google_dns_managed_zone" "brentsmith-info-zone" {
-  name        = var.zone_name
-  dns_name    = "brentsmith.info."
-  description = var.zone_description
-}
-
 resource "google_dns_record_set" "frontend" {
   name = "frontend.${google_dns_managed_zone.brentsmith-info-zone.dns_name}"
   type = "A"
